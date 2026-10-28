@@ -1,0 +1,42 @@
+#!/bin/sh
+# AppRun - start the recompiled Fatal Fury 3 player from inside the AppImage.
+#
+# ROM lookup order:
+#   1. an explicit --rom-path on the command line;
+#   2. FATFURY3_ROM_DIR, if set;
+#   3. a "roms" folder next to the AppImage;
+#   4. ~/.local/share/fatfury3/roms, ~/Emulation/roms/fatfury3, ~/roms/fatfury3.
+# No ROM or BIOS data is inside the AppImage; supply your own legally
+# obtained dump.
+HERE=$(dirname "$(readlink -f "$0")")
+export LD_LIBRARY_PATH="$HERE/usr/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+
+has_rom=0
+for a in "$@"; do
+    [ "$a" = "--rom-path" ] && has_rom=1
+done
+if [ "$has_rom" = 0 ]; then
+    cand=""
+    if [ -n "${FATFURY3_ROM_DIR:-}" ]; then
+        cand="$FATFURY3_ROM_DIR"
+    elif [ -n "${APPIMAGE:-}" ]; then
+        for d in "$(dirname "$APPIMAGE")/roms" \
+                 "$(dirname "$APPIMAGE")/roms/fatfury3" \
+                 "$HOME/.local/share/fatfury3/roms" \
+                 "$HOME/Emulation/roms/fatfury3" \
+                 "$HOME/roms/fatfury3" "$HOME/roms"; do
+            if [ -d "$d" ]; then cand="$d"; break; fi
+        done
+    fi
+    [ -n "$cand" ] && set -- --rom-path "$cand" "$@"
+fi
+
+# Steam Deck / Gaming Mode wants a fullscreen game. Keep --headless, an
+# explicit --fullscreen or an explicit --scale from being overridden.
+add_fs=1
+for a in "$@"; do
+    case "$a" in --headless|--fullscreen|--scale) add_fs=0;; esac
+done
+[ "$add_fs" = 1 ] && set -- --fullscreen "$@"
+
+exec "$HERE/usr/bin/fatfury3" "$@"

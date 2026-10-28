@@ -1,0 +1,21 @@
+# Short credit/start session for --verify and smoke runs.
+# Boot: BIOS eyecatcher, title at ~3000, HOW TO PLAY, ENEMY SELECT.
+3200 coin
+3400 start
+4000 a
+4200 a
+4400 right
+4600 a
+4700 a
+4800 right
+4900 right
+5000 a
+5100 b
+5200 c
+5300 d
+5400 right+a
+5500 left+b
+5600 a
+5700 c
+5800 right+d
+5900 a

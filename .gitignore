@@ -1,0 +1,28 @@
+# Build inputs and outputs; none of it is source.
+build*/
+generated/
+entries*.txt
+roms/
+shots/
+dist/
+*.wav
+*.mp4
+*.avi
+*.log
+*.exe
+*.dll
+*.lib
+*.obj
+*.pdb
+*.AppImage
+*.zip
+
+# Keep the project's original icon; ignore other images (game captures).
+*.png
+!packaging/appimage/fatfury3.png
+
+# Public source uploads omit build configuration at the owner's request.
+CMakeLists.txt
+*.cmake
+CMakeCache.txt
+CMakeFiles/

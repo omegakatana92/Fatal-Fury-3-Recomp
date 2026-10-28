@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Fatal Fury 3
+Comment=Native static recompilation of Fatal Fury 3 (Neo Geo)
+Exec=fatfury3
+Icon=fatfury3
+Categories=Game;ArcadeGame;
+Terminal=false
