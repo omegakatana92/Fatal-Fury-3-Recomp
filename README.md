@@ -37,6 +37,11 @@ dist/
 No ROMs or BIOS files are included in either package. The AppImage is a
 native Linux x86_64 build, not a renamed Windows executable.
 
+Published release:
+<https://github.com/omegakatana92/Fatal-Fury-3-Recomp/releases/tag/v0.1.0>
+(GitHub changes spaces in asset filenames to dots; the local files keep the
+spaced names.)
+
 ## Verified ROM set
 
 The supplied archive is the plain MAME `fatfury3` set. Every file's SHA-1 was
