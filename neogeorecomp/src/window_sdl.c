@@ -165,8 +165,9 @@ void window_audio(const int16_t *samples, size_t frames) {
         Uint8 scratch[4096];
         while (drop > 0) {
             Uint32 n = drop < (Uint32)sizeof(scratch) ? drop : (Uint32)sizeof(scratch);
-            if (SDL_DequeueAudio(s_audio, scratch, n) < 0) break;
-            drop -= n;
+            Uint32 got = SDL_DequeueAudio(s_audio, scratch, n);
+            if (got == 0) break;   /* SDL returns the byte count, 0 if empty */
+            drop -= got;
         }
         s_audio_stalls++;
         queued = SDL_GetQueuedAudioSize(s_audio);
